@@ -11,8 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -46,7 +46,7 @@ public class Notice {
 	@Column(name = "n_content")
 	private String nContent;
 
-	@Temporal(TemporalType.DATE)
+	@JsonFormat(timezone = "Asia/Seoul", pattern = "yy-MM-dd")
 	@Column(name = "n_date")
 	private Date nDate;
 
