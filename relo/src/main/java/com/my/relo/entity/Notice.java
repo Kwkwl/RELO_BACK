@@ -1,6 +1,7 @@
 package com.my.relo.entity;
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -48,8 +49,11 @@ public class Notice {
 
 	@JsonFormat(timezone = "Asia/Seoul", pattern = "yy-MM-dd")
 	@Column(name = "n_date")
-	private Date nDate;
-
+	private LocalDate nDate;
+	
+	/**
+	 * 서비스(0) / 작업(1) / 업데이트(2) / 이벤트(3)
+	 */
 	@Column(name = "n_category")
 	private int nCategory;
 }

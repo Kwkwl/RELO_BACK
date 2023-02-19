@@ -1,10 +1,15 @@
 package com.my.relo.entity;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -34,33 +39,31 @@ public class Member {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "member_sequence_generator")
 	private Long mNum; 
 
-	@Column
 	private String id; 
 
-	@Column
 	private String pwd; 
 
-	@Column
 	private String tel;
 
-	@Column
 	private String email;
 	
 	/**
-	 * 유형 - 관리자(1) / 판매자 및 구매자(1) 
+	 * 유형 - 관리자(1) / 판매자 및 구매자(0) 
 	 */
-	@Column
 	private int type; 
 
-	@Column
 	private String birth;
 
-	@Column
 	private String name;
 	
 	/**
-	 * 탈퇴 여부 - 탈퇴시 -1이 insert됨
+	 * 탈퇴 여부 -> 탈퇴시 -1이 insert됨
 	 */
-	@Column
+	@Column(name = "out_ck")
 	private Integer outCk;
+	
+	@OneToMany(fetch = FetchType.EAGER)
+	@JoinColumn(name = "addr_num")
+	private List<Address> addresses;
+	
 }
