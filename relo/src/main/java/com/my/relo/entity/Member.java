@@ -62,8 +62,4 @@ public class Member {
 	@Column(name = "out_ck")
 	private Integer outCk;
 	
-	@OneToMany(fetch = FetchType.EAGER)
-	@JoinColumn(name = "addr_num")
-	private List<Address> addresses;
-	
 }
