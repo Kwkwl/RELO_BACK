@@ -36,7 +36,6 @@ public class Notice {
 	private Long nNum;
 
 	@NotNull
-//	@JoinColumn(name = "m_num")
 	@Column(name = "m_num")
 	private Long mNum;
 
