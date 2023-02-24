@@ -10,9 +10,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-//@Setter
 @Getter
-//@NoArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 
 public class NoticeDTO {
