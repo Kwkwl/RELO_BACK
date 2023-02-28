@@ -38,19 +38,23 @@ public class Notice {
 	@Column(name = "m_num")
 	private Long mNum;
 
+	@NotNull
 	@Column(name = "n_title")
 	private String nTitle;
 
+	@NotNull
 	@Column(name = "n_content")
 	private String nContent;
 
 	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
+	@NotNull
 	@Column(name = "n_date")
 	private LocalDate nDate;
 
 	/**
 	 * 서비스(0) / 작업(1) / 업데이트(2) / 이벤트(3)
 	 */
+	@NotNull
 	@Column(name = "n_category")
 	private Integer nCategory;
 

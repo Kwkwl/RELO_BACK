@@ -73,7 +73,7 @@ public class Member {
 	public Member
 	(String id, String pwd, String tel,
 			String email, Integer type, 
-			String birth, String name) {
+			String birth, String name, Long mNum) {
 		this.id = id;
 		this.pwd = pwd;
 		this.tel = tel;
@@ -81,6 +81,7 @@ public class Member {
 		this.type = type;
 		this.birth = birth;
 		this.name = name;
+		this.mNum = mNum;
 	}
 	
 	public void updateMember(MemberDTO dto) {
