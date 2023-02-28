@@ -29,4 +29,5 @@ public interface NoticeRepository extends CrudRepository<Notice, Long>, PagingAn
 	List<Object[]> findNextNotice(Long nNum);
 	
 	Page<Notice> findAll(Pageable pageable);
+
 }

@@ -18,7 +18,6 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -45,7 +44,7 @@ public class Notice {
 	@Column(name = "n_content")
 	private String nContent;
 
-	@JsonFormat(timezone = "Asia/Seoul", pattern = "yy-MM-dd")
+	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
 	@Column(name = "n_date")
 	private LocalDate nDate;
 
@@ -54,13 +53,13 @@ public class Notice {
 	 */
 	@Column(name = "n_category")
 	private Integer nCategory;
-	
+
 	@Builder
-	public Notice(Integer nCategory, String nTitle, String nContent, LocalDate nDate, Long mNum) {
-		this.nCategory = nCategory;
-		this.nTitle = nTitle;
-		this.nContent = nContent;
-		this.nDate = nDate;
+	public Notice(Integer category, String title, String content, LocalDate date, Long mNum) {
+		this.nCategory = category;
+		this.nTitle = title;
+		this.nContent = content;
+		this.nDate = date;
 		this.mNum = mNum;
 	}
 

@@ -8,21 +8,17 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
-import org.hibernate.annotations.DynamicInsert;
-import org.hibernate.annotations.DynamicUpdate;
+import com.my.relo.dto.MemberDTO;
 
-import lombok.AllArgsConstructor;
+import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@DynamicInsert
-@DynamicUpdate
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @Table(name = "member")
 @SequenceGenerator(name = "member_sequence_generator", // 제너레이터명
@@ -42,33 +38,56 @@ public class Member {
 
 	private String id; 
 
-	@Column(nullable = false)
+	@NotNull
 	private String pwd; 
 
-	@Column(nullable = false)
+	@NotNull
 	private String tel;
 
-	@Column(nullable = false)
+	@NotNull
 	private String email;
 	
 	/**
 	 * 유형 - 관리자(1) / 판매자 및 구매자(0) 
 	 */
-	@Column(nullable = false)
-	private int type; 
+	@NotNull
+	private Integer type; 
 
-	@Column(nullable = false)
+	@NotNull
 	private String birth;
 
-	@Column(nullable = false)
+	@NotNull
 	private String name;
 	
 	/**
 	 * 탈퇴 여부 -> 탈퇴시 -1이 insert됨
 	 */
+	
 	@Column(name = "out_ck")
 	private Integer outCk;
 	
 	@OneToOne(mappedBy = "member")
 	private Account account;
+	
+	@Builder
+	public Member
+	(String id, String pwd, String tel,
+			String email, Integer type, 
+			String birth, String name) {
+		this.id = id;
+		this.pwd = pwd;
+		this.tel = tel;
+		this.email = email;
+		this.type = type;
+		this.birth = birth;
+		this.name = name;
+	}
+	
+	public void updateMember(MemberDTO dto) {
+		this.id = dto.getId();
+		this.pwd = dto.getPwd();
+		this.tel = dto.getTel();
+		this.email = dto.getEmail();
+		this.outCk = dto.getOutCk();
+	}
 }

@@ -3,6 +3,7 @@ package com.my.relo.dto;
 import java.time.LocalDate;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.my.relo.entity.Notice;
 
 import lombok.AccessLevel;
@@ -12,7 +13,7 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class NoticeDTO {
 
 	private Long nNum;
@@ -22,9 +23,9 @@ public class NoticeDTO {
 	private String nTitle;
 
 	private String nContent;
-
-	@JsonFormat(timezone = "Asia/Seoul", pattern = "yy-MM-dd")
-	private LocalDate nDate;
+	
+	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
+	private LocalDate ndate;
 
 	/**
 	 * 서비스(0) / 작업(1) / 업데이트(2) / 이벤트(3)
@@ -37,13 +38,13 @@ public class NoticeDTO {
 		this.nCategory = category;
 		this.nTitle = title;
 		this.nContent = content;
-		this.nDate = date;
+		this.ndate = date;
 		this.mNum = mNum;
 	}
 
 	public Notice toEntity() {
-		Notice entity = Notice.builder().nCategory(this.nCategory).nDate(this.nDate).nTitle(this.nTitle)
-				.nContent(this.nContent).mNum(this.mNum).build();
+		Notice entity = Notice.builder().category(this.nCategory).date(this.ndate).title(this.nTitle)
+				.content(this.nContent).mNum(this.mNum).build();
 
 		return entity;
 	}

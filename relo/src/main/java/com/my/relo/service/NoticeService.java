@@ -1,7 +1,9 @@
 package com.my.relo.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +27,10 @@ public class NoticeService {
 	private NoticeRepository nr;
 
 	// 추가
-	public void addNotice(NoticeDTO dto) throws AddException {
-		nr.save(dto.toEntity());
+	public Long addNotice(NoticeDTO dto) throws AddException {
+		Notice n = dto.toEntity();
+		nr.save(n);
+		return n.getNNum();
 	}
 
 	// 제목으로 검색
@@ -59,11 +63,12 @@ public class NoticeService {
 	}
 
 	// 페이징
-	public List<NoticeDTO> pagingNotice(int currentPage) throws FindException {
-		Pageable sortedByUserIdDesc = PageRequest.of(currentPage, 10, Sort.by("nNum").descending());
+	public Map<String, Object> pagingNotice(int currentPage) throws FindException {
+		Pageable sortedByUserIdDesc = PageRequest.of(currentPage - 1, 10, Sort.by("nNum").descending());
 
 		Page<Notice> p = nr.findAll(sortedByUserIdDesc);
 		List<Notice> list = p.getContent();
+		int totalPage = p.getTotalPages();
 
 		List<NoticeDTO> collect = new ArrayList<>();
 		for (Notice n : list) {
@@ -72,7 +77,11 @@ public class NoticeService {
 			collect.add(dto);
 		}
 
-		return collect;
+		Map<String, Object> result = new HashMap<>();
+		result.put("totalPage", totalPage);
+		result.put("collect", collect);
+
+		return result;
 	}
 
 	// 세부 공지사항 조회
@@ -82,8 +91,8 @@ public class NoticeService {
 			throw new FindException();
 		else {
 			Notice n = optN.get();
-			NoticeDTO dto = NoticeDTO.builder().nNum(n.getNNum()).mNum(n.getMNum()).title(n.getNTitle())
-					.content(n.getNContent()).category(n.getNCategory()).date(n.getNDate()).build();
+			NoticeDTO dto = NoticeDTO.builder().title(n.getNTitle()).content(n.getNContent()).category(n.getNCategory())
+					.date(n.getNDate()).build();
 			return dto;
 		}
 	}
@@ -92,26 +101,35 @@ public class NoticeService {
 	public NoticeDTO searchPre(Long nNum) {
 		List<Object[]> n = nr.findPrevNotice(nNum);
 
-		Long preNNum = Long.valueOf(String.valueOf(n.get(0)[0]));
-		String preTitle = String.valueOf(n.get(0)[1]);
+		if (n.size() == 0) {
+			return null;
+		} else {
+			Long preNNum = Long.valueOf(String.valueOf(n.get(0)[0]));
+			String preTitle = String.valueOf(n.get(0)[1]);
 
-		NoticeDTO dto = NoticeDTO.builder().nNum(preNNum).title(preTitle).build();
-		return dto;
+			NoticeDTO dto = NoticeDTO.builder().nNum(preNNum).title(preTitle).build();
+			return dto;
+		}
 	}
 
 	// 다음 글 검색
 	public NoticeDTO searchNext(Long nNum) {
 		List<Object[]> n = nr.findNextNotice(nNum);
 
-		Long nextNNum = Long.valueOf(String.valueOf(n.get(0)[0]));
-		String nextTitle = String.valueOf(n.get(0)[1]);
+		if (n.size() == 0) {
+			return null;
+		} else {
+			Long nextNNum = Long.valueOf(String.valueOf(n.get(0)[0]));
+			String nextTitle = String.valueOf(n.get(0)[1]);
 
-		NoticeDTO dto = NoticeDTO.builder().nNum(nextNNum).title(nextTitle).build();
-		return dto;
+			NoticeDTO dto = NoticeDTO.builder().nNum(nextNNum).title(nextTitle).build();
+			return dto;
+		}
 	}
 
 	// 수정
 	public void updateNotice(NoticeDTO notice) throws FindException {
+
 		Optional<Notice> optN = nr.findById(notice.getNNum());
 		if (!optN.isPresent())
 			throw new FindException();
@@ -119,30 +137,18 @@ public class NoticeService {
 			Notice n = optN.get();
 
 			if (notice.getNCategory() == null) {
-				notice = NoticeDTO.builder()
-						.nNum(notice.getNNum())
-						.title(notice.getNTitle())
-						.content(notice.getNContent())
-						.category(n.getNCategory())
-						.build();
+				notice = NoticeDTO.builder().nNum(notice.getNNum()).title(notice.getNTitle())
+						.content(notice.getNContent()).category(n.getNCategory()).build();
 			}
 
 			if (notice.getNTitle() == null) {
-				notice = NoticeDTO.builder()
-						.nNum(notice.getNNum())
-						.title(n.getNTitle())
-						.content(notice.getNContent())
-						.category(notice.getNCategory())
-						.build();
+				notice = NoticeDTO.builder().nNum(notice.getNNum()).title(n.getNTitle()).content(notice.getNContent())
+						.category(notice.getNCategory()).build();
 			}
 
 			if (notice.getNContent() == null) {
-				notice = NoticeDTO.builder()
-						.nNum(notice.getNNum())
-						.title(notice.getNTitle())
-						.content(n.getNContent())
-						.category(notice.getNCategory())
-						.build();
+				notice = NoticeDTO.builder().nNum(notice.getNNum()).title(notice.getNTitle()).content(n.getNContent())
+						.category(notice.getNCategory()).build();
 			}
 
 			n.updateNotice(notice);
@@ -152,7 +158,14 @@ public class NoticeService {
 	}
 
 	// 삭제
-	public void deleteNotice(Long nNum) throws RemoveException {
-		nr.deleteById(nNum);
+	public void deleteNotice(Long nNum) throws RemoveException, FindException {
+		Optional<Notice> optN = nr.findById(nNum);
+
+		if (!optN.isPresent())
+			throw new FindException();
+		else {
+			Notice n = optN.get();
+			nr.deleteById(n.getNNum());
+		}
 	}
 }
