@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -35,7 +37,8 @@ public class Notice {
 	private Long nNum;
 
 	@NotNull
-	@Column(name = "m_num")
+	@ManyToOne(targetEntity = Member.class)
+	@JoinColumn(name = "m_num")
 	private Long mNum;
 
 	@NotNull
