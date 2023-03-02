@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.my.relo.entity.Member;
 import com.my.relo.entity.Notice;
 
 import lombok.AccessLevel;
@@ -18,7 +19,7 @@ public class NoticeDTO {
 
 	private Long nNum;
 
-	private Long mNum;
+	private Member member;
 
 	private String nTitle;
 
@@ -33,18 +34,18 @@ public class NoticeDTO {
 	private Integer nCategory;
 
 	@Builder
-	public NoticeDTO(Long nNum, Integer category, String title, String content, LocalDate date, Long mNum) {
+	public NoticeDTO(Long nNum, Integer category, String title, String content, LocalDate date, Member member) {
 		this.nNum = nNum;
 		this.nCategory = category;
 		this.nTitle = title;
 		this.nContent = content;
 		this.ndate = date;
-		this.mNum = mNum;
+		this.member = member;
 	}
 
 	public Notice toEntity() {
 		Notice entity = Notice.builder().category(this.nCategory).date(this.ndate).title(this.nTitle)
-				.content(this.nContent).mNum(this.mNum).build();
+				.content(this.nContent).member(this.member).build();
 
 		return entity;
 	}

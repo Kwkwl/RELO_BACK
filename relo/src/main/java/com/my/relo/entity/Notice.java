@@ -2,8 +2,10 @@ package com.my.relo.entity;
 
 import java.time.LocalDate;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -37,15 +39,15 @@ public class Notice {
 	private Long nNum;
 
 	@NotNull
-	@ManyToOne(targetEntity = Member.class)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "m_num")
-	private Long mNum;
+	private Member member;
 
 	@NotNull
 	@Column(name = "n_title")
 	private String nTitle;
 
-	@NotNull
+//	@NotNull
 	@Column(name = "n_content")
 	private String nContent;
 
@@ -62,12 +64,12 @@ public class Notice {
 	private Integer nCategory;
 
 	@Builder
-	public Notice(Integer category, String title, String content, LocalDate date, Long mNum) {
+	public Notice(Integer category, String title, String content, LocalDate date, Member member) {
 		this.nCategory = category;
 		this.nTitle = title;
 		this.nContent = content;
 		this.nDate = date;
-		this.mNum = mNum;
+		this.member = member;
 	}
 
 	public void updateNotice(NoticeDTO dto) {
