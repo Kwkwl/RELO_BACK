@@ -24,8 +24,15 @@ public class MemberService {
 
 	// 아이디 및 비밀번호 찾기
 	public String findIdAndPwd(String tel) {
-		String id = mr.findIdAndPwd(tel);
-		if(id != null) {
+		Member m = mr.findIdAndPwd(tel);
+		if(m != null) {
+			String id = m.getId();
+			StringBuilder sb = new StringBuilder(id);
+			int totalLength = id.length()-1;
+			for(int i=totalLength;i>=4;i--) {
+				sb.setCharAt(i, '*');
+			}
+			id = sb.toString();
 			return id;
 		}
 		return null;

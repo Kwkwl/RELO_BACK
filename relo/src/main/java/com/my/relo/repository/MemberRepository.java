@@ -23,7 +23,7 @@ public interface MemberRepository extends CrudRepository<Member, Long> {
 	Member checkId(String id);
 
 	// 아이디 및 비밀번호 찾기
-	@Query(value = "select id from Member m where tel=:tel")
-	String findIdAndPwd(String tel);
+	@Query(value = "select m from Member m where tel=:tel")
+	Member findIdAndPwd(String tel);
 
 }
