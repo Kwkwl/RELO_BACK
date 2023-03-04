@@ -22,12 +22,21 @@ public class MemberService {
 		mr.save(dto.toEntity());
 	}
 
+	// 아이디 및 비밀번호 찾기
+	public String findIdAndPwd(String tel) {
+		String id = mr.findIdAndPwd(tel);
+		if(id != null) {
+			return id;
+		}
+		return null;
+	}
+	
 	// 아이디 중복 체크
 	public MemberDTO idCheck(String id) {
 		Member m = mr.checkId(id);
 
 		if (m != null) {
-			MemberDTO dto = MemberDTO.builder().id(m.getId()).pwd(m.getPwd()).build();
+			MemberDTO dto = MemberDTO.builder().id(m.getId()).pwd(m.getPwd()).mnum(m.getMNum()).type(m.getType()).build();
 			return dto;
 		} else {
 			return null;
@@ -41,15 +50,27 @@ public class MemberService {
 			throw new FindException();
 		else {
 			Member m = optM.get();
-			MemberDTO dto = MemberDTO.builder().id(m.getId()).pwd(m.getPwd()).email(m.getEmail()).birth(m.getBirth())
+			
+			String email = m.getEmail();
+			StringBuilder sb = new StringBuilder(email);
+			
+			int startIdx = 1;
+			int endIdx = email.indexOf("@")-2;
+			
+			for(int i=startIdx;i<=endIdx;i++) {
+				sb.setCharAt(i, '*');
+			}
+			email = sb.toString();
+			
+			MemberDTO dto = MemberDTO.builder().id(m.getId()).pwd(m.getPwd()).email(email).birth(m.getBirth())
 					.name(m.getName()).tel(m.getTel()).build();
 			return dto;
 		}
 	}
 
 	// 회원 정보 수정
-	public void updateProfile(MemberDTO dto) throws FindException {
-		Optional<Member> optM = mr.findById(dto.getMnum());
+	public void updateProfile(Long mNum, MemberDTO dto) throws FindException {
+		Optional<Member> optM = mr.findById(mNum);
 		if (!optM.isPresent()) {
 			throw new FindException();
 		} else {

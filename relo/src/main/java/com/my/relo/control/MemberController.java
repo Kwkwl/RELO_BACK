@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.nio.file.Files;
+import java.util.Map;
 import java.util.StringTokenizer;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,7 +19,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -43,13 +43,25 @@ public class MemberController {
 	private final String saveDirectory = "C:\\storage\\member";
 
 	// 회원 가입
-	@GetMapping("join")
-	public ResponseEntity<?> join(@RequestBody MemberDTO dto) throws AddException {
-		if (dto == null) {
-			throw new AddException();
-		} else {
+	@PostMapping("join")
+	public ResponseEntity<?> join(@RequestBody Map<String, Object> param) throws AddException {
+		boolean check1 = (boolean) param.get("check1");
+		boolean check2 = (boolean) param.get("check2");
+
+		String id = (String) param.get("id");
+		String pwd = (String) param.get("pwd");
+		String tel = (String) param.get("tel");
+		String birth = (String) param.get("birth");
+		String email = (String) param.get("email");
+		String name = (String) param.get("name");
+
+		MemberDTO dto = MemberDTO.builder().id(id).pwd(pwd).birth(birth).email(email).name(name).tel(tel).type(1).build();
+
+		if (check1 && check2) {
 			ms.join(dto);
 			return new ResponseEntity<>(HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 	}
 
@@ -62,9 +74,10 @@ public class MemberController {
 		if (dto.getId().equals(id) && dto.getPwd().equals(pwd)) {
 
 			HttpSession session = request.getSession();
-			session.setAttribute("logined", id);
+			session.setAttribute("logined", dto.getMnum());
+			session.setAttribute("loginId", id);
 
-			return new ResponseEntity<>(HttpStatus.OK);
+			return new ResponseEntity<>(dto.getType(), HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
@@ -74,7 +87,7 @@ public class MemberController {
 	@GetMapping("checklogined")
 	public ResponseEntity<?> checkLogined(HttpServletRequest request) {
 		HttpSession session = request.getSession();
-		String loginId = (String) session.getAttribute("logined");
+		String loginId = (String) session.getAttribute("loginId");
 		MemberDTO dto = ms.idCheck(loginId);
 
 		if (dto != null) {
@@ -91,22 +104,36 @@ public class MemberController {
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
+	// 아이디 및 비밀번호 찾기
+	@PostMapping("findidandpwd")
+	public ResponseEntity<?> findIdAndPwd(String tel) {
+		String id = ms.findIdAndPwd(tel);
+
+		if (id != null) {
+			return new ResponseEntity<>(id, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+	}
+
 	// 아이디 중복 체크
 	@GetMapping("idcheck")
 	public ResponseEntity<?> idCheck(@RequestParam String id) {
 		MemberDTO dto = ms.idCheck(id);
 
 		if (dto == null) {
-			return new ResponseEntity<>(HttpStatus.OK);
+			return new ResponseEntity<>("ok", HttpStatus.OK);
 		} else {
-			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>("no", HttpStatus.OK);
 		}
 	}
 
 	// 회원 프로필 이미지 출력(이미지 수정 후 출력)
-	@GetMapping(value = "img/{mNum}")
-	public ResponseEntity<?> showImage(@PathVariable Long mNum,
+	@PostMapping(value = "img")
+	public ResponseEntity<?> showImage(HttpSession session,
 			@RequestPart(value = "profile", required = false) MultipartFile profile) throws IOException {
+
+		Long mNum = (Long) session.getAttribute("logined");
 
 		File saveDirFile = new File(saveDirectory);
 
@@ -164,13 +191,13 @@ public class MemberController {
 			responseHeaders.set(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=" + URLEncoder.encode("a", "UTF-8"));
 			return new ResponseEntity<>(img, responseHeaders, HttpStatus.OK);
 		}
-
-		return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		return null;
 	}
 
 	// 회원 프로필 조회(개인 정보만 조회)
-	@GetMapping(value = "detail/{mNum}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<?> detail(@PathVariable Long mNum) throws FindException, IOException {
+	@GetMapping(value = "detail", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<?> detail(HttpSession session) throws FindException, IOException {
+		Long mNum = (Long) session.getAttribute("logined");
 		MemberDTO dto = ms.detailMember(mNum);
 
 		return new ResponseEntity<>(dto, HttpStatus.OK);
@@ -179,9 +206,11 @@ public class MemberController {
 
 	// 회원 정보 수정
 	@PutMapping(value = "edit")
-	public ResponseEntity<?> edit(@RequestBody MemberDTO dto) throws AddException, FindException {
-		if (dto.getMnum() != null) {
-			ms.updateProfile(dto);
+	public ResponseEntity<?> edit(HttpSession session, @RequestBody MemberDTO dto) throws AddException, FindException {
+		Long mNum = (Long) session.getAttribute("logined");
+
+		if (mNum != null) {
+			ms.updateProfile(mNum, dto);
 			return new ResponseEntity<>(HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -189,22 +218,43 @@ public class MemberController {
 	}
 
 	// 회원 탈퇴시 탈퇴 가능 여부 확인 후, id null && outCk를 -1로 변경
-	@PutMapping("out/{mNum}")
-	public ResponseEntity<?> out(@PathVariable Long mNum) throws FindException {
+	@PutMapping("out")
+	public ResponseEntity<?> out(HttpSession session, String pwd) throws FindException {
+		Long mNum = (Long) session.getAttribute("logined");
+
+		MemberDTO dto = ms.detailMember(mNum);
 		Integer cnt = ms.checkOutTerms(mNum);
-		if (cnt == 1) {
+
+		if (cnt == 1 && dto.getPwd().equals(pwd)) {
 			ms.updateIdNull(mNum);
+			return new ResponseEntity<>(HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
-		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
 	// 회원 정보 삭제
-	@DeleteMapping("del/{mNum}")
-	public ResponseEntity<?> delete(@PathVariable Long mNum) throws RemoveException, FindException {
+	@DeleteMapping("del")
+	public ResponseEntity<?> delete(HttpSession session) throws RemoveException, FindException {
+		Long mNum = (Long) session.getAttribute("logined");
+
 		ms.deleteMember(mNum);
 
+		delProfile(mNum);
+
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
+
+	@DeleteMapping("delprofile")
+	public ResponseEntity<?> deleteProfile(HttpSession session) throws RemoveException, FindException {
+		Long mNum = (Long) session.getAttribute("logined");
+		delProfile(mNum);
+
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
+
+	// 회원 프로필 삭제
+	public void delProfile(Long mNum) {
 		File saveDirFile = new File(saveDirectory);
 
 		// 해당 경로의 정보 필요 -> listFiles로 해당 경로의 정보 얻어옴
@@ -220,6 +270,5 @@ public class MemberController {
 				break;
 			}
 		}
-		return new ResponseEntity<>(HttpStatus.OK);
 	}
 }
