@@ -19,6 +19,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -45,8 +46,7 @@ public class MemberController {
 	// 회원 가입
 	@PostMapping("join")
 	public ResponseEntity<?> join(@RequestBody Map<String, Object> param) throws AddException {
-		boolean check1 = (boolean) param.get("check1");
-		boolean check2 = (boolean) param.get("check2");
+		boolean check = (boolean) param.get("check");
 
 		String id = (String) param.get("id");
 		String pwd = (String) param.get("pwd");
@@ -57,7 +57,7 @@ public class MemberController {
 
 		MemberDTO dto = MemberDTO.builder().id(id).pwd(pwd).birth(birth).email(email).name(name).tel(tel).type(1).build();
 
-		if (check1 && check2) {
+		if (check) {
 			ms.join(dto);
 			return new ResponseEntity<>(HttpStatus.OK);
 		} else {
@@ -85,15 +85,13 @@ public class MemberController {
 
 	// 로그인 상태 확인
 	@GetMapping("checklogined")
-	public ResponseEntity<?> checkLogined(HttpServletRequest request) {
-		HttpSession session = request.getSession();
-		String loginId = (String) session.getAttribute("loginId");
-		MemberDTO dto = ms.idCheck(loginId);
+	public ResponseEntity<?> checkLogined(HttpSession session) throws FindException {
+		Long mNum = (Long) session.getAttribute("logined");
 
-		if (dto != null) {
-			return new ResponseEntity<>(HttpStatus.OK);
+		if (mNum != null) {
+			return new ResponseEntity<>("ok",HttpStatus.OK);
 		} else {
-			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>("no", HttpStatus.OK);
 		}
 	}
 
@@ -133,6 +131,7 @@ public class MemberController {
 	public ResponseEntity<?> showImage(HttpSession session,
 			@RequestPart(value = "profile", required = false) MultipartFile profile) throws IOException {
 
+		
 		Long mNum = (Long) session.getAttribute("logined");
 
 		File saveDirFile = new File(saveDirectory);
@@ -164,6 +163,7 @@ public class MemberController {
 				}
 			}
 		} else {
+			System.out.println("프로필 메서드 호출됨: "+profile.getOriginalFilename());
 
 			for (File f : files) {
 				StringTokenizer stk = new StringTokenizer(f.getName(), ".");
@@ -218,15 +218,15 @@ public class MemberController {
 	}
 
 	// 회원 탈퇴시 탈퇴 가능 여부 확인 후, id null && outCk를 -1로 변경
-	@PutMapping("out")
-	public ResponseEntity<?> out(HttpSession session, String pwd) throws FindException {
+	@PutMapping("out/{checkCnt}")
+	public ResponseEntity<?> out(HttpSession session, @PathVariable Integer checkCnt) throws FindException {
 		Long mNum = (Long) session.getAttribute("logined");
 
-		MemberDTO dto = ms.detailMember(mNum);
 		Integer cnt = ms.checkOutTerms(mNum);
 
-		if (cnt == 1 && dto.getPwd().equals(pwd)) {
+		if (checkCnt == 5 && cnt == 1) {
 			ms.updateIdNull(mNum);
+			session.invalidate();
 			return new ResponseEntity<>(HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
