@@ -56,7 +56,7 @@ public class EmailServiceImpl implements EmailService {
 		String code = ePw;
 		message.setDescription(code);
 		message.setText(msgg, "UTF-8", "HTML");// 내용
-		message.setFrom(new InternetAddress("relokosta@gmail.com", "relokosta"));// 보내는 사람
+		message.setFrom(new InternetAddress("relokosta@gmail.com", "RELO"));// 보내는 사람
 		return message;
 	}
 

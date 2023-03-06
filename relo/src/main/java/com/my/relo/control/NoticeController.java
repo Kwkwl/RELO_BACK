@@ -1,6 +1,8 @@
 package com.my.relo.control;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.HashMap;
@@ -8,6 +10,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.StringTokenizer;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -45,51 +49,78 @@ public class NoticeController {
 	private final String saveDirectory = "C:\\storage\\notice";
 
 	// 공지사항 작성
-	@PostMapping(value = "write/{mNum}")
-	public ResponseEntity<?> write(@PathVariable Long mNum, NoticeDTO dto,
-			@RequestPart(value = "f") List<MultipartFile> f)
+	@PostMapping(value = "write")
+	public ResponseEntity<?> write(
+			@RequestPart(value = "param") Map<String, Object> param 
+			, HttpSession session
+			,			@RequestPart(required = false) List<MultipartFile> f
+			)
 			throws AddException, IllegalStateException, IOException, FindException {
+		
+		String title = (String) param.get("title");
+		String rawCategory = (String) param.get("category");
+		Integer category = Integer.valueOf(rawCategory);
+		String content = (String) param.get("content");
+		
+		
+		System.out.println("값1: " + title);
+		System.out.println("값2: " + category);
+		System.out.println("값3: " + content);
 
-		Optional<Member> optM = mr.findById(mNum);
+		Long mNum = (Long) session.getAttribute("logined");
+		Optional<Member> optM = mr.findById(4L);
 		if (optM.isPresent()) {
 			Member m = optM.get();
-			
-			dto = NoticeDTO.builder().member(m).title(dto.getNTitle()).date(LocalDate.now())
-					.category(dto.getNCategory()).build();
+
+			NoticeDTO dto = NoticeDTO.builder().member(m).title(title).date(LocalDate.now())
+					.category(category).build();
 
 			Long nNum = ns.addNotice(dto);
 
-			StringBuilder sb = new StringBuilder();
-
-			for (int i = 0; i < f.size(); i++) {
-				MultipartFile oneFile = f.get(i);
-				String orignFileName = oneFile.getOriginalFilename();
-				String folderName = "n_" + nNum;
-				String fileName = "";
-				if (f.size() > 1) {
-					fileName = folderName + "_" + i + "." + orignFileName.substring(orignFileName.lastIndexOf(".") + 1);
-				} else {
-					fileName = folderName + "." + orignFileName.substring(orignFileName.lastIndexOf(".") + 1);
-				}
-
-				sb.append(fileName).append(",");
-
-				File exitFolder = new File(saveDirectory, folderName);
-				if (!exitFolder.exists()) {
-					exitFolder.mkdirs();
-				}
-
-				File exitStorage = new File(saveDirectory + "/" + folderName + "/" + fileName);
-
-				oneFile.transferTo(exitStorage);
-
-				dto = NoticeDTO.builder().nNum(nNum).content(sb.toString()).build();
-				
-				ns.updateNotice(dto);
+			String folderName = "n_" + nNum;
+			String fileName = folderName + ".html";
+			
+			File exitFolder = new File(saveDirectory, folderName);
+			if (!exitFolder.exists()) {
+				exitFolder.mkdirs();
 			}
+			
+			FileWriter writer = new FileWriter(saveDirectory+"/"+folderName+"/"+fileName);
+			writer.write(content);
+			writer.close();
+			if(!f.isEmpty()) {
+			uploadFile(dto, nNum, f);
+			}
+
 			return new ResponseEntity<>(HttpStatus.OK);
 		} else {
 			throw new FindException();
+		}
+	}
+	
+	public void uploadFile(NoticeDTO dto, Long nNum, List<MultipartFile> f) throws IllegalStateException, IOException, FindException {
+		StringBuilder sb = new StringBuilder();
+
+		for (int i = 0; i < f.size(); i++) {
+			MultipartFile oneFile = f.get(i);
+			String orignFileName = oneFile.getOriginalFilename();
+			String folderName = "n_" + nNum;
+			String fileName = "";
+			if (f.size() > 1) {
+				fileName = folderName + "_" + i + "." + orignFileName.substring(orignFileName.lastIndexOf(".") + 1);
+			} else {
+				fileName = folderName + "." + orignFileName.substring(orignFileName.lastIndexOf(".") + 1);
+			}
+
+			sb.append(fileName).append(",");
+
+			File exitStorage = new File(saveDirectory + "/" + folderName + "/" + fileName);
+
+			oneFile.transferTo(exitStorage);
+
+			dto = NoticeDTO.builder().nNum(nNum).content(sb.toString()).build();
+
+			ns.updateNotice(dto);
 		}
 	}
 
@@ -229,73 +260,9 @@ public class NoticeController {
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
-//	// 공지사항 파일 수정 및 출력
-//	@GetMapping(value = "img/{nNum}")
-//	public HttpEntity<?> showImage(@PathVariable Long nNum,
-//			@RequestPart(value = "fileList", required = false) List<MultipartFile> fileList) throws IOException {
-//		String saveDirectory = "C:\\storage\\notice";
-//		File saveDirFile = new File(saveDirectory);
-////		List<Resource> list = new ArrayList<>();
-//
-//		File[] files = saveDirFile.listFiles();
-//		if (fileList == null) {
-//
-//			MultiValueMap<String, Object> form = new LinkedMultiValueMap<>();
-//			HttpHeaders httpHeaders = new HttpHeaders();
-//
-//			for (File f : files) {
-////				System.out.println(f.getName());
-//
-//				String fileName = f.getName();
-//				int idx = fileName.lastIndexOf(".");
-//				String ext = "";
-//
-//				if (idx != -1) {
-//					ext = fileName.substring(idx + 1);
-////				System.out.println("ext: "+ext);
-//
-//					if (f.getName().equals("n_" + nNum)) {
-//						StringTokenizer stk = new StringTokenizer(f.getAbsolutePath(), "/");
-//						String fileFullPath = stk.nextToken();
-//
-////						httpHeaders.setContentType(MediaType.MULTIPART_FORM_DATA);
-//						form.add("files", f);
-//
-//						// 파일 크기 설정
-//						httpHeaders.set(HttpHeaders.CONTENT_LENGTH, f.length() + "");
-//						// 파일 타입 설정
-//						httpHeaders.set(HttpHeaders.CONTENT_TYPE, Files.probeContentType(f.toPath()));
-//						// 파일 인코딩 설정
-//						httpHeaders.set(HttpHeaders.CONTENT_DISPOSITION,
-//								"inline; filename=" + URLEncoder.encode("a", "UTF-8"));
-////					UrlResource urlResource = new UrlResource("file:" + fileFullPath + ext);
-////					System.out.println(fileFullPath + ext);
-////
-////					String encodedDownloadFileName = UriUtils.encode(f.getName(), StandardCharsets.UTF_8);
-////					String contentDisposition = "inline; filename=\"" + encodedDownloadFileName + "\"";
-////
-////					list.add(urlResource);
-////					
-////					return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, contentDisposition)
-////							.body(list);
-////						HttpEntity<?> downloadEntity = new HttpEntity<>(form, httpHeaders);
-////						RestTemplate restTemplate = new RestTemplate();
-////
-////						restTemplate.getMessageConverters().add(new FormHttpMessageConverter());
-////						restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
-////
-////						String requestURL = request.getRequestURL().substring(0,
-////								request.getRequestURL().indexOf(request.getRequestURI()));
-////						String uri = requestURL + "/relo";
-////
-////						return restTemplate.getForEntity(uri, downloadEntity);
-//					}
-//				}
-//			}
-//			return new HttpEntity<>(form, httpHeaders);
-//		}
-////		return new ResponseEntity<>(HttpStatus.OK);
-//		return null;
+//	@PostMapping("showfile/{nNum}")
+//	public ResponseEntity<?> showFile(List<MultipartFile> fileList) {
+//		
 //	}
 
 	// 공지사항 삭제

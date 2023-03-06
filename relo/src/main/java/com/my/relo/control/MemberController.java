@@ -55,7 +55,8 @@ public class MemberController {
 		String email = (String) param.get("email");
 		String name = (String) param.get("name");
 
-		MemberDTO dto = MemberDTO.builder().id(id).pwd(pwd).birth(birth).email(email).name(name).tel(tel).type(1).build();
+		MemberDTO dto = MemberDTO.builder().id(id).pwd(pwd).birth(birth).email(email).name(name).tel(tel).type(1)
+				.build();
 
 		if (check) {
 			ms.join(dto);
@@ -89,7 +90,7 @@ public class MemberController {
 		Long mNum = (Long) session.getAttribute("logined");
 
 		if (mNum != null) {
-			return new ResponseEntity<>("ok",HttpStatus.OK);
+			return new ResponseEntity<>("ok", HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>("no", HttpStatus.OK);
 		}
@@ -131,7 +132,6 @@ public class MemberController {
 	public ResponseEntity<?> showImage(HttpSession session,
 			@RequestPart(value = "profile", required = false) MultipartFile profile) throws IOException {
 
-		
 		Long mNum = (Long) session.getAttribute("logined");
 
 		File saveDirFile = new File(saveDirectory);
@@ -163,7 +163,6 @@ public class MemberController {
 				}
 			}
 		} else {
-			System.out.println("프로필 메서드 호출됨: "+profile.getOriginalFilename());
 
 			for (File f : files) {
 				StringTokenizer stk = new StringTokenizer(f.getName(), ".");
@@ -191,6 +190,41 @@ public class MemberController {
 			responseHeaders.set(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=" + URLEncoder.encode("a", "UTF-8"));
 			return new ResponseEntity<>(img, responseHeaders, HttpStatus.OK);
 		}
+		return null;
+	}
+
+	// 스타일 게시판 목록에 회원 프로필 이미지 출력
+	@PostMapping(value = "img/{mNum}")
+	public ResponseEntity<?> showProfileList(@PathVariable Long mNum) throws IOException {
+
+		File saveDirFile = new File(saveDirectory);
+
+		// 해당 경로의 정보 필요 -> listFiles로 해당 경로의 정보 얻어옴
+		File[] files = saveDirFile.listFiles();
+		Resource img = null;
+		for (File f : files) {
+			// .을 기준으로, 확장자명 앞에 있는 파일명 얻음
+			StringTokenizer stk = new StringTokenizer(f.getName(), ".");
+			String fileName = stk.nextToken();
+
+			// 해당 파일들 중에서 원하는 파일 이름과 일치하는 파일명이 존재할 경우
+			if (fileName.equals("m_" + mNum)) {
+				img = new FileSystemResource(f);
+
+				// response 헤더 설정을 따로 하지 않을 경우, 응답 헤더의 content-type이 application/json 타입으로 되므로
+				// 설정 필요함
+				HttpHeaders responseHeaders = new HttpHeaders();
+				// 파일 크기 설정
+				responseHeaders.set(HttpHeaders.CONTENT_LENGTH, f.length() + "");
+				// 파일 타입 설정
+				responseHeaders.set(HttpHeaders.CONTENT_TYPE, Files.probeContentType(f.toPath()));
+				// 파일 인코딩 설정
+				responseHeaders.set(HttpHeaders.CONTENT_DISPOSITION,
+						"inline; filename=" + URLEncoder.encode("a", "UTF-8"));
+				return new ResponseEntity<>(img, responseHeaders, HttpStatus.OK);
+			}
+		}
+
 		return null;
 	}
 
