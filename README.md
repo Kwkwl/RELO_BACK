@@ -15,7 +15,7 @@ KOSTA Final Project
 <table>
 <tr height="140px">
 	<td align="center" width="130px">
-            <a href="https://github.com/thdus17"><img height="100px" width="100px" src="https://avatars.githubusercontent.com/u/4595546?v=4"/></a>
+            <a href="https://github.com/thdus17"><img height="100px" width="100px" src="[https://avatars.githubusercontent.com/u/4595546?v=4](https://avatars.githubusercontent.com/u/82258923?v=4)"/></a>
             <br />
             <a href="https://github.com/thdus17">thdus17</a>
         </td>
