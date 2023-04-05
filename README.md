@@ -12,6 +12,7 @@ KOSTA Final Project
 : 상품 리셀 사이트(Kream 벤치마킹 사이트)
 (중고 물품을 원하는 가격에 사고 팔 수 있는 웹사이트를 개발하는 프로젝트 입니다.)
 - 팀 구성: 5명(조장 1명, 팀원 4명)
+<table>
 <tr height="140px">
 	<td align="center" width="130px">
             <a href="https://github.com/thdus17"><img height="100px" width="100px" src="https://avatars.githubusercontent.com/u/4595546?v=4"/></a>
@@ -34,6 +35,8 @@ KOSTA Final Project
             <a href="https://github.com/keyhyeong">keyhyeong</a>
         </td>
 </tr>
+</table>
+<br>
 - 상세역할: 개발 및 이슈사항 체크, 파트 조율
 
 <h3>프로젝트 전체 흐름</h3>
