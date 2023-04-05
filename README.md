@@ -18,21 +18,29 @@ KOSTA Final Project
             <a href="https://github.com/thdus17"><img height="100px" width="100px" src="https://user-images.githubusercontent.com/112039872/230057196-609d044c-5e0e-4990-b55f-7e26b86cf2d3.png"/></a>
             <br />
             <a href="https://github.com/thdus17">thdus17</a>
+	    <br />
+	    <p> 팀장 </p>			
         </td>
         <td align="center" width="130px">
-            <a href="https://github.com/KyunglaeKim"><img height="100px" width="100px" src="https://avatars.githubusercontent.com/u/30228292?v=4"/></a>
+            <a href="https://github.com/KyunglaeKim"><img height="100px" width="100px" src="https://user-images.githubusercontent.com/112039872/230057341-7836033b-1a13-419d-9146-f35fcbc3a4b5.png"/></a>
             <br />
             <a href="https://github.com/KyunglaeKim">KyunglaeKim</a>
+	    <br />
+	    <p> 팀원 </p>	
         </td>
         <td align="center" width="130px">
-            <a href="https://github.com/Aingell"><img height="100px" width="100px" src="https://avatars.githubusercontent.com/u/66085474?v=4"/></a>
+            <a href="https://github.com/Aingell"><img height="100px" width="100px" src="https://user-images.githubusercontent.com/112039872/230057885-9a9bd3d2-ff4b-4c22-a61c-4ccb30ed430b.png"/></a>
             <br />
             <a href="https://github.com/Aingell">Aingell</a>
+	    <br />
+	    <p> 팀원 </p>	
         </td>
 	<td align="center" width="130px">
-            <a href="https://github.com/keyhyeong"><img height="100px" width="100px" src="https://avatars.githubusercontent.com/u/66085474?v=4"/></a>
+            <a href="https://github.com/keyhyeong"><img height="100px" width="100px" src="https://user-images.githubusercontent.com/112039872/230057732-f5428c68-26fd-4fa8-8233-efa6c7458f7a.png"/></a>
             <br />
             <a href="https://github.com/keyhyeong">keyhyeong</a>
+	    <br />
+	    <p> 팀원 </p>	
         </td>
 </tr>
 </table>
