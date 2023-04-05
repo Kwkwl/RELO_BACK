@@ -18,13 +18,30 @@ KOSTA Final Project
 2. 프로젝트 정보
 
 - 프로젝트 개발 환경 및 사용 기술
-
- 
+<p>📚 Tech Stack 📚</p>
+<div>
+	<img src="https://img.shields.io/badge/Java-007396?style=flat&logo=Java&logoColor=white" />
+	<img src="https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=HTML5&logoColor=white" />
+	<img src="https://img.shields.io/badge/CSS3-1572B6?style=flat&logo=CSS3&logoColor=white" />
+  <img src="https://img.shields.io/badge/jQuery-0769AD?style=flat&logo=jQuery&logoColor=white" />
+  <img src="https://img.shields.io/badge/Spring Boot-6DB33F?style=flat&logo=Spring Boot&logoColor=white" />
+	<img src="https://img.shields.io/badge/Oracle%20SQL-F80000?style=flat&logo=Oracle&logoColor=white" />
+</div>
+<br>
+<p>🛠 Tools 🛠</p>
+<div>
+  <img src="https://img.shields.io/badge/Eclipse%20IDE-2C2255?style=flat&logo=EclipseIDE&logoColor=white" />
+	<img src="https://img.shields.io/badge/Visual%20Studio%20Code-007ACC?style=flat&logo=VisualStudioCode&logoColor=white" />
+	<br>
+	<img src="https://img.shields.io/badge/Tomcat-F8DC75?style=flat&logo=ApacheTomcat&logoColor=white" />
+	<img src="https://img.shields.io/badge/GitHub-181717?style=flat&logo=GitHub&logoColor=white" />
+</div>
 
 3. 프로젝트 결과물
 
 - 기능
 
+<div>
 1. 회원가입 : 정규표현식을 활용하여 각 입력란마다 유효성 검사 기능 구현, SMS API를 통해 본인 인증 기능 구현
 2-1. 일반 로그인 : Session에 회원번호를 저장하고 10분마다 서버측과 통신하여 로그인 유지 기능 구현
 2-2. 소셜 로그인 : 카카오 간편 로그인 API를 이용해서 간편 로그인 기능 구현 
@@ -32,11 +49,11 @@ KOSTA Final Project
 4. 회원탈퇴 : 탈퇴 불가한 조건에 미충족되는 회원만 탈퇴할 수 있으며, 모든 탈퇴 약관에 동의했는지 체크하는 기능 구현   
 5. 마이페이지(프로필 정보 조회/수정) : 최신 프로필 정보 조회 기능 구현, 휴대폰 번호/비밀번호/이메일 정보 수정 기능 구현, 프로필 사진 변경 및 삭제 기능 구현
 6. 공지사항 작성/조회/수정/삭제 : Summernote 에디터를 이용해서 관리자만 공지사항 작성 및 수정 기능 구현, 전체 목록/제목으로 검색/카테고리별 조회 기능 구현
-
-+ 추가 구현 중인 기능
-º SSE를 이용한 알림 기능
+<br>
++ 추가 구현 중인 기능<br>
+º SSE를 이용한 알림 기능<br>
 º 공지사항 제목 검색 + 카테고리 필터 동시 적용된 공지사항 목록 조회 기능
-
+</div>
 - 결과 예시 화면
 
 <h3> 1. 회원가입 </h3>
