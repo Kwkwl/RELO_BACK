@@ -10,8 +10,8 @@ KOSTA Final Project
 <p>
 [RELO]
 : 상품 리셀 사이트(Kream 벤치마킹 사이트)
-(중고 물품을 원하는 가격에 사고 팔 수 있는 웹사이트를 개발하는 프로젝트 입니다.)
-- 팀 구성: 5명(조장 1명, 팀원 4명)
+(중고 물품을 원하는 가격에 사고 팔 수 있는 웹사이트를 개발하는 프로젝트 입니다.)<br>
+- 팀 구성: 5명(조장 1명, 팀원 4명)<br>
 <table>
 <tr height="140px">
 	<td align="center" width="130px">
@@ -96,6 +96,18 @@ KOSTA Final Project
 º 공지사항 제목 검색 + 카테고리 필터 동시 적용된 공지사항 목록 조회 기능
 </div>
 
+<h3> ERD </h3>
+[ERD](https://www.erdcloud.com/d/so6mXG4rPo4ucmMLv)
+
+<h3></h3>
+<div>
+[회원 Entity](https://github.com/KOSTAreloproject/back/blob/dev/relo/src/main/java/com/my/relo/entity/Member.java)
+[회원 DTO](https://github.com/KOSTAreloproject/back/blob/dev/relo/src/main/java/com/my/relo/dto/MemberDTO.java)
+[회원 Repository](https://github.com/KOSTAreloproject/back/blob/dev/relo/src/main/java/com/my/relo/repository/MemberRepository.java)
+[회원 Service](https://github.com/KOSTAreloproject/back/blob/dev/relo/src/main/java/com/my/relo/service/MemberService.java)
+[회원 Controller](https://github.com/KOSTAreloproject/back/blob/dev/relo/src/main/java/com/my/relo/control/MemberController.java)
+</div>
+
 <h2> - 결과 예시 화면 </h2>
 
 <h3> 1. 회원가입 </h3>
@@ -109,7 +121,7 @@ KOSTA Final Project
   <img src="https://user-images.githubusercontent.com/112039872/229706127-6264b43c-284f-4f46-aa1b-27901b281904.jpg">
 </p>
 <br>
-
+	
 <h3> 2-1. 일반 로그인 </h3>
 <p align="center">
   <img src="https://user-images.githubusercontent.com/112039872/229703840-d330c42c-54f9-4d4d-aac8-7976adf27e3a.PNG">
