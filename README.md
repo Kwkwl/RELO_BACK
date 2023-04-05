@@ -97,14 +97,14 @@ KOSTA Final Project
 </div>
 
 <h3> ERD </h3>
-[ERD](https://www.erdcloud.com/d/so6mXG4rPo4ucmMLv)
+[ERD](https://user-images.githubusercontent.com/112039872/230065147-1667e9c8-40f7-4443-9827-cea130473aaf.png)
 
 <h3></h3>
 <div>
-[회원 Entity](https://github.com/KOSTAreloproject/back/blob/dev/relo/src/main/java/com/my/relo/entity/Member.java)
-[회원 DTO](https://github.com/KOSTAreloproject/back/blob/dev/relo/src/main/java/com/my/relo/dto/MemberDTO.java)
-[회원 Repository](https://github.com/KOSTAreloproject/back/blob/dev/relo/src/main/java/com/my/relo/repository/MemberRepository.java)
-[회원 Service](https://github.com/KOSTAreloproject/back/blob/dev/relo/src/main/java/com/my/relo/service/MemberService.java)
+https://github.com/KOSTAreloproject/back/blob/dev/relo/src/main/java/com/my/relo/entity/Member.java "회원 Entity"<br>
+[회원 DTO](https://github.com/KOSTAreloproject/back/blob/dev/relo/src/main/java/com/my/relo/dto/MemberDTO.java)<br>
+[회원 Repository](https://github.com/KOSTAreloproject/back/blob/dev/relo/src/main/java/com/my/relo/repository/MemberRepository.java)<br>
+[회원 Service](https://github.com/KOSTAreloproject/back/blob/dev/relo/src/main/java/com/my/relo/service/MemberService.java)<br>
 [회원 Controller](https://github.com/KOSTAreloproject/back/blob/dev/relo/src/main/java/com/my/relo/control/MemberController.java)
 </div>
 
