@@ -4,17 +4,24 @@ KOSTA Final Project
 1. 프로젝트 Description
 
 - 프로젝트 이름 및 설명
+프로젝트 로고
+<p>
+  <img width="190" alt="logo" src="https://user-images.githubusercontent.com/112039872/229705047-f29f939d-25bf-4faa-9c09-8d9b9245a367.png">
+<p>
 [RELO]
 : 상품 리셀 사이트(Kream 벤치마킹 사이트)
 (중고 물품을 원하는 가격에 사고 팔 수 있는 웹사이트를 개발하는 프로젝트 입니다.)
 - 팀 구성: 5명(조장 1명, 팀원 4명)
 - 상세역할: 개발 및 이슈사항 체크, 파트 조율
 
-프로젝트 로고
-<p>
-  <img width="190" alt="logo" src="https://user-images.githubusercontent.com/112039872/229705047-f29f939d-25bf-4faa-9c09-8d9b9245a367.png">
-<p>
-
+<h3>프로젝트 전체 흐름</h3>
+<div>
+<p> - 판매자 흐름 </p>
+<img width="427" alt="판매절차" src="https://user-images.githubusercontent.com/112039872/230049286-a5e5e092-874e-4c40-a7d1-1cc883f2acba.PNG">
+<p> - 구매자 흐름 </p>
+<img width="431" alt="구매절차" src="https://user-images.githubusercontent.com/112039872/230049294-904d6490-39ad-41b4-8094-83b8ed846ff5.PNG">
+</div>
+	
 2. 프로젝트 정보
 
 - 프로젝트 개발 환경 및 사용 기술
@@ -23,9 +30,10 @@ KOSTA Final Project
 	<img src="https://img.shields.io/badge/Java-007396?style=flat&logo=Java&logoColor=white" />
 	<img src="https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=HTML5&logoColor=white" />
 	<img src="https://img.shields.io/badge/CSS3-1572B6?style=flat&logo=CSS3&logoColor=white" />
-  <img src="https://img.shields.io/badge/jQuery-0769AD?style=flat&logo=jQuery&logoColor=white" />
-  <img src="https://img.shields.io/badge/Spring Boot-6DB33F?style=flat&logo=Spring Boot&logoColor=white" />
+  	<img src="https://img.shields.io/badge/jQuery-0769AD?style=flat&logo=jQuery&logoColor=white" />
 	<img src="https://img.shields.io/badge/Oracle%20SQL-F80000?style=flat&logo=Oracle&logoColor=white" />
+  	<img src="https://img.shields.io/badge/Spring Boot-6DB33F?style=flat&logo=Spring Boot&logoColor=white" />
+	<img src="https://img.shields.io/badge/JSON-000000?style=flat&logo=JSON&logoColor=white" />
 </div>
 <br>
 <p>🛠 Tools 🛠</p>
@@ -33,6 +41,7 @@ KOSTA Final Project
   <img src="https://img.shields.io/badge/Eclipse%20IDE-2C2255?style=flat&logo=EclipseIDE&logoColor=white" />
 	<img src="https://img.shields.io/badge/Visual%20Studio%20Code-007ACC?style=flat&logo=VisualStudioCode&logoColor=white" />
 	<br>
+	<img src="https://img.shields.io/badge/Apache Maven-C71A36?style=flat&logo=Apache Maven&logoColor=white" />
 	<img src="https://img.shields.io/badge/Tomcat-F8DC75?style=flat&logo=ApacheTomcat&logoColor=white" />
 	<img src="https://img.shields.io/badge/GitHub-181717?style=flat&logo=GitHub&logoColor=white" />
 </div>
