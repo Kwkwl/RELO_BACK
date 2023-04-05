@@ -1,8 +1,19 @@
 # RELO_BACK
 KOSTA Final Project
 
+## 📢 목차
+* [기획의도](#기획의도)
+* [소개](#프로젝트-소개)
+* [기능](#기능)
+* [구성](#구성)
+* [기술 스택](#기술-스택)
+* [미리보기](#페이지-미리보기)
+
 <h1> 1. 프로젝트 Description </h1>
 
+## 기획의도
+
+## 프로젝트 소개
 <h2> - 프로젝트 이름 및 설명 </h2>
 프로젝트 로고
 <p>
@@ -11,7 +22,8 @@ KOSTA Final Project
 [RELO]
 : 상품 리셀 사이트(Kream 벤치마킹 사이트)
 (중고 물품을 원하는 가격에 사고 팔 수 있는 웹사이트를 개발하는 프로젝트 입니다.)<br>
-- 팀 구성: 5명(조장 1명, 팀원 4명)<br>
+- 팀 구성: 5명(조장 1명, 팀원 4명)<br>	
+	
 <table>
 <tr height="140px">
 	<td align="center" width="130px">
@@ -19,7 +31,14 @@ KOSTA Final Project
             <br />
             <a href="https://github.com/thdus17">thdus17</a>
 	    <br />
-	    <p> 팀장 </p>			
+	    <p> 👑 팀장 </p>			
+        </td>
+	<td align="center" width="130px">
+            <a href="https://github.com/Kwlkwl"><img height="100px" width="100px" src="https://avatars.githubusercontent.com/u/112039872?v=4"/></a>
+            <br />
+            <a href="https://github.com/Kwlkwl">Kwlkwl</a>
+	    <br />
+	    <p> 팀원 </p>	
         </td>
         <td align="center" width="130px">
             <a href="https://github.com/KyunglaeKim"><img height="100px" width="100px" src="https://user-images.githubusercontent.com/112039872/230057341-7836033b-1a13-419d-9146-f35fcbc3a4b5.png"/></a>
@@ -57,6 +76,7 @@ KOSTA Final Project
 	
 <h1> 2. 프로젝트 정보 </h1>
 
+## 기술 스택
 <h2> - 프로젝트 개발 환경 및 사용 기술 </h2>
 <p>📚 Tech Stack 📚</p>
 <div>
@@ -101,6 +121,7 @@ KOSTA Final Project
 	<img src="https://user-images.githubusercontent.com/112039872/230065147-1667e9c8-40f7-4443-9827-cea130473aaf.png">
 </p>
 
+## 페이지-미리보기
 <h2> - 결과 예시 화면 </h2>
 
 <h3> 1. 회원가입 </h3>
