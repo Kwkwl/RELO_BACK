@@ -2,7 +2,7 @@
 KOSTA Final Project
 
 ## 📢 목차
-* [기획의도](#기획의도)
+* [프로젝트 선정 이유](#프로젝트 선정 이유)
 * [소개](#프로젝트-소개)
 * [기능](#기능)
 * [구성](#구성)
@@ -11,18 +11,22 @@ KOSTA Final Project
 
 <h1> 1. 프로젝트 Description </h1>
 
-## 기획의도
+## 프로젝트 선정 이유
+Kream 사이트에서 구매자는 구매하고 싶은 상품을 원하는 가격에 구매할 수 있고 판매자는 팔고 싶은 상품을 판매할 수 있는 경매 기능이 흥미로워서 선정하게 되었습니다.<br>
 
 ## 프로젝트 소개
 <h2> - 프로젝트 이름 및 설명 </h2>
 프로젝트 로고
 <p>
   <img width="190" alt="logo" src="https://user-images.githubusercontent.com/112039872/229705047-f29f939d-25bf-4faa-9c09-8d9b9245a367.png">
-<p>
+</p>
 [RELO]
-: 상품 리셀 사이트(Kream 벤치마킹 사이트)
+: 상품 리셀 사이트(Kream 벤치마킹 사이트)<br>
 (중고 물품을 원하는 가격에 사고 팔 수 있는 웹사이트를 개발하는 프로젝트 입니다.)<br>
 - 팀 구성: 5명(조장 1명, 팀원 4명)<br>	
+
+[백엔드 전체 코드](https://github.com/KOSTAreloproject/back/tree/dev)
+[프론트엔드 전체 코드](https://github.com/KOSTAreloproject/front/tree/dev)
 	
 <table>
 <tr height="140px">
