@@ -15,7 +15,7 @@ KOSTA Final Project
 Kream 사이트에서 구매자는 구매하고 싶은 상품을 원하는 가격에 구매할 수 있고 판매자는 팔고 싶은 상품을 판매할 수 있는 경매 기능이 흥미로워서 선정하게 되었습니다.<br>
 
 ## 프로젝트 소개
-<h2> - 프로젝트 이름 및 설명 </h2>
+<h2> (1) 프로젝트 이름 및 설명 </h2>
 프로젝트 로고
 <p>
   <img width="190" alt="logo" src="https://user-images.githubusercontent.com/112039872/229705047-f29f939d-25bf-4faa-9c09-8d9b9245a367.png">
@@ -24,8 +24,8 @@ Kream 사이트에서 구매자는 구매하고 싶은 상품을 원하는 가�
 : 상품 리셀 사이트(Kream 벤치마킹 사이트)<br>
 (중고 물품을 원하는 가격에 사고 팔 수 있는 웹사이트를 개발하는 프로젝트 입니다.)<br>
 - 팀 구성: 5명(조장 1명, 팀원 4명)<br>	
-
-[백엔드 전체 코드](https://github.com/KOSTAreloproject/back/tree/dev)
+<br>
+[백엔드 전체 코드](https://github.com/KOSTAreloproject/back/tree/dev)<br>
 [프론트엔드 전체 코드](https://github.com/KOSTAreloproject/front/tree/dev)
 	
 <table>
@@ -35,14 +35,16 @@ Kream 사이트에서 구매자는 구매하고 싶은 상품을 원하는 가�
             <br />
             <a href="https://github.com/thdus17">thdus17</a>
 	    <br />
-	    <p> 👑 팀장 </p>			
+	    <p> 👑팀장 </p>
+	    <p> 경매, 낙찰, 주문, 배송  </p>
         </td>
 	<td align="center" width="130px">
             <a href="https://github.com/Kwlkwl"><img height="100px" width="100px" src="https://avatars.githubusercontent.com/u/112039872?v=4"/></a>
             <br />
             <a href="https://github.com/Kwlkwl">Kwlkwl</a>
 	    <br />
-	    <p> 팀원 </p>	
+	    <p> 팀원 </p>
+	    <p> 회원, 공지사항 파트 <br> 상세역할: 개발 및 이슈사항 체크, 파트 조율 </p>
         </td>
         <td align="center" width="130px">
             <a href="https://github.com/KyunglaeKim"><img height="100px" width="100px" src="https://user-images.githubusercontent.com/112039872/230057341-7836033b-1a13-419d-9146-f35fcbc3a4b5.png"/></a>
@@ -50,6 +52,7 @@ Kream 사이트에서 구매자는 구매하고 싶은 상품을 원하는 가�
             <a href="https://github.com/KyunglaeKim">KyunglaeKim</a>
 	    <br />
 	    <p> 팀원 </p>	
+	    <p> 상품목록 필터링, 찜하기 </p>
         </td>
         <td align="center" width="130px">
             <a href="https://github.com/Aingell"><img height="100px" width="100px" src="https://user-images.githubusercontent.com/112039872/230057885-9a9bd3d2-ff4b-4c22-a61c-4ccb30ed430b.png"/></a>
@@ -57,6 +60,7 @@ Kream 사이트에서 구매자는 구매하고 싶은 상품을 원하는 가�
             <a href="https://github.com/Aingell">Aingell</a>
 	    <br />
 	    <p> 팀원 </p>	
+	    <p> STYLE 게시판, 댓글, 좋아요, 해시태그, 주소록 파트 </p>
         </td>
 	<td align="center" width="130px">
             <a href="https://github.com/keyhyeong"><img height="100px" width="100px" src="https://user-images.githubusercontent.com/112039872/230057732-f5428c68-26fd-4fa8-8233-efa6c7458f7a.png"/></a>
@@ -64,13 +68,13 @@ Kream 사이트에서 구매자는 구매하고 싶은 상품을 원하는 가�
             <a href="https://github.com/keyhyeong">keyhyeong</a>
 	    <br />
 	    <p> 팀원 </p>	
+	    <p> 재고, 상품, 반송배송, 계좌 </p>
         </td>
 </tr>
 </table>
 <br>
-- 상세역할: 개발 및 이슈사항 체크, 파트 조율
 
-<h3>프로젝트 전체 흐름</h3>
+<h2> (2) 프로젝트 전체 흐름 </h2>
 <div>
 <p> - 판매자 흐름 </p>
 <img width="427" alt="판매절차" src="https://user-images.githubusercontent.com/112039872/230049286-a5e5e092-874e-4c40-a7d1-1cc883f2acba.PNG">
@@ -81,7 +85,7 @@ Kream 사이트에서 구매자는 구매하고 싶은 상품을 원하는 가�
 <h1> 2. 프로젝트 정보 </h1>
 
 ## 기술 스택
-<h2> - 프로젝트 개발 환경 및 사용 기술 </h2>
+<h2> 프로젝트 개발 환경 및 사용 기술 </h2>
 <p>📚 Tech Stack 📚</p>
 <div>
 	<img src="https://img.shields.io/badge/Java-007396?style=flat&logo=Java&logoColor=white" />
@@ -105,7 +109,22 @@ Kream 사이트에서 구매자는 구매하고 싶은 상품을 원하는 가�
 
 <h1> 3. 프로젝트 결과물 </h1>
 
-<h2> - 기능 </h2>
+<h2> 주요 기능 </h2>
+□ 사용자 페이지
+- 입찰 시스템 구현(구매입찰/판매입찰)
+- 상품별 최근/평균 가격 구현
+- SNS 와 같은 게시물(STYLE 게시판) 등록/수정 기능 구현
+- STYLE 게시판과 댓글에 좋아요/댓글 기능 구현
+- 해시태그 통한 게시물 필터링 구현
+- 마이페이지(프로필 정보 확인 및 수정)
+<br>
+□ 관리자 페이지
+- 경매(낙찰) 관리
+- 배송현황 관리
+- 공지사항 관리(게시물 등록 및 수정, 삭제)
+- 상품관리(상품 등록 및 게시상태)
+
+<h2> 본인이 맡은 파트 기능 </h2>
 
 | 순번 | 기능     | 기능 내용                                                   |
 | :--: | :------: |:------------------------------------------------------------|
@@ -130,7 +149,7 @@ Kream 사이트에서 구매자는 구매하고 싶은 상품을 원하는 가�
 </p>
 
 ## 페이지-미리보기
-<h2> - 결과 예시 화면 </h2>
+<h2> 결과 예시 화면 </h2>
 
 <h3> 1. 회원가입 </h3>
 <p align="center">
